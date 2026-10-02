@@ -348,6 +348,11 @@ const pageTitles = {
       "AI санал болгосон тендерүүд."
   },
 
+  qualification: {
+    title: "Qualification",
+    subtitle: "Тендерийн шаардлагын үнэлгээ, нотлох баримт, эх сурвалж."
+  },
+
   saved: {
     title: "Saved Tenders",
 

@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0",
+  "is_demo": true,
+  "tender": {
+    "id": "demo-tender-001",
+    "title": "Жишээ: Сургуулийн барилгын тендер",
+    "filename": "sample-tender.pdf",
+    "processing_status": "COMPLETED"
+  },
+  "company": { "id": "demo-company-001", "name": "Жишээ компани ХХК" },
+  "evaluations": [
+    {
+      "requirement": {
+        "requirement_id": "demo-req-001",
+        "category": "Туршлага",
+        "original_text": "Барилга угсралтын чиглэлээр 3-аас доошгүй жил ажилласан байх.",
+        "translated_text": "At least 3 years of construction experience is required.",
+        "mandatory": true,
+        "required_evidence": "Компанийн бүртгэл болон гүйцэтгэсэн ажлын гэрээнүүд.",
+        "minimum_value": "3 жил",
+        "source_page": 4,
+        "source_section": "2.1 Туршлагын шаардлага"
+      },
+      "status": "MEETS",
+      "explanation": "Жишээ бүртгэл болон гэрээний огноо 5 жилийн үйл ажиллагааг нотолж байна. Эдгээр огноо болон үйл ажиллагааны чиглэлийг эх баримтаар баталгаажуулах шаардлагатай.",
+      "evidence": [
+        {
+          "document_id": "demo-doc-001",
+          "filename": "sample-company-registration.pdf",
+          "excerpt": "Үйл ажиллагааны чиглэл: барилга угсралт. Бүртгэсэн огноо: 2021-03-15.",
+          "source_page": 1,
+          "source_section": "Бүртгэлийн мэдээлэл"
+        },
+        {
+          "document_id": "demo-doc-002",
+          "filename": "sample-project-history.pdf",
+          "excerpt": "Барилгын төсөл: 2021–2026 оны гүйцэтгэсэн ажлын гэрээнүүд.",
+          "source_page": 2,
+          "source_section": "Гүйцэтгэсэн ажил"
+        }
+      ],
+      "missing_information": []
+    },
+    {
+      "requirement": {
+        "requirement_id": "demo-req-002",
+        "category": "Санхүүгийн чадавх",
+        "original_text": "Сүүлийн жилийн борлуулалтын орлого 1 тэрбум төгрөгөөс багагүй байх.",
+        "translated_text": "Revenue in the last financial year must be at least MNT 1 billion.",
+        "mandatory": true,
+        "required_evidence": "Сүүлийн жилийн баталгаажуулсан санхүүгийн тайлан.",
+        "minimum_value": "1,000,000,000 MNT",
+        "source_page": 5,
+        "source_section": "2.2 Санхүүгийн чадавх"
+      },
+      "status": "DOES_NOT_MEET",
+      "explanation": "Жишээ тайланд 750 сая төгрөгийн орлого байна. Энэ нь шаардсан 1 тэрбум төгрөгөөс 250 саяар бага. Тайлангийн хугацаа болон тооцооллыг хүний хяналтаар шалгана.",
+      "evidence": [
+        {
+          "document_id": "demo-doc-003",
+          "filename": "sample-financial-statement.pdf",
+          "excerpt": "2025 оны борлуулалтын орлого: 750,000,000 төгрөг.",
+          "source_page": 3,
+          "source_section": "Орлогын тайлан"
+        }
+      ],
+      "missing_information": ["Тендерт хамтарсан орлого тооцохыг зөвшөөрсөн эсэхийг шалгах."]
+    },
+    {
+      "requirement": {
+        "requirement_id": "demo-req-003",
+        "category": "Тусгай зөвшөөрөл",
+        "original_text": "Барилга угсралтын хүчинтэй тусгай зөвшөөрөлтэй байх.",
+        "translated_text": "A valid construction license is required.",
+        "mandatory": true,
+        "required_evidence": "Хүчинтэй хугацаа харагдах тусгай зөвшөөрлийн хуулбар.",
+        "minimum_value": null,
+        "source_page": 6,
+        "source_section": "2.3 Тусгай зөвшөөрөл"
+      },
+      "status": "UNCERTAIN",
+      "explanation": "Жишээ хуулбар дээр зөвшөөрлийн нэр харагдаж байгаа боловч хүчинтэй хугацаа уншигдахгүй байна. Хүчинтэй эсэхийг тогтоох боломжгүй.",
+      "evidence": [
+        {
+          "document_id": "demo-doc-004",
+          "filename": "sample-license-scan.pdf",
+          "excerpt": "Барилга угсралтын тусгай зөвшөөрөл. Хүчинтэй хугацаа: [уншигдахгүй].",
+          "source_page": 1,
+          "source_section": "Зөвшөөрлийн мэдээлэл"
+        }
+      ],
+      "missing_information": ["Хүчинтэй хугацаа тод харагдах хуулбар эсвэл албан ёсны лавлагаа."]
+    },
+    {
+      "requirement": {
+        "requirement_id": "demo-req-004",
+        "category": "Хүний нөөц",
+        "original_text": "Мэргэшсэн 2-оос доошгүй инженерийн мэдээлэл ирүүлэх.",
+        "translated_text": null,
+        "mandatory": true,
+        "required_evidence": "Инженерүүдийн мэргэшлийн гэрчилгээ болон ажиллах гэрээ.",
+        "minimum_value": "2 инженер",
+        "source_page": null,
+        "source_section": "Хавсралт Б — Ажилтны мэдээлэл"
+      },
+      "status": "NOT_ANALYZED",
+      "explanation": "Энэ шаардлагын харьцуулалт хийгдээгүй. Ажилтны нотлох баримт бүрдээгүй бөгөөд тендерийн хуудасны дугаар тодорхойгүй байна.",
+      "evidence": [],
+      "missing_information": ["Инженерүүдийн гэрчилгээ болон ажиллах гэрээ.", "Тендерийн эх баримтын хуудасны дугаарыг тогтоох."]
+    }
+  ]
+}

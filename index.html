@@ -41,6 +41,11 @@
           AI Match
         </button>
 
+        <button class="nav-item" data-page="qualification" title="Qualification" aria-label="Qualification">
+          <span aria-hidden="true">🔎</span>
+          Qualification
+        </button>
+
         <button class="nav-item" data-page="saved">
           <span>⭐</span>
           Saved
@@ -303,6 +308,50 @@
 
       </section>
 
+
+      <!-- QUALIFICATION -->
+      <section id="qualification" class="page">
+        <div class="panel qualification-intro">
+          <p class="hero-small">TENDER QUALIFICATION REVIEW</p>
+          <h2>Тендерийн шаардлага шалгах</h2>
+          <p>Шаардлага бүрийн үнэлгээ, нотлох баримт болон эх сурвалжийг хамтад нь хянах.</p>
+          <div class="qualification-notice">
+            <strong>Хүний хяналт шаардлагатай</strong>
+            <p>Үнэлгээ нь шийдвэр гаргахад туслах мэдээлэл. Компанийн албан ёсны шалгаруулалтын шийдвэр биш. Материал илгээхээс өмнө эх баримт болон тодорхойгүй мэдээллийг шалгана уу.</p>
+          </div>
+          <div class="qualification-demo-action">
+            <button class="primary-btn" id="loadQualificationDemo" type="button">Жишээ тайлан харах</button>
+            <p>Зохиомол жишээ өгөгдөл. Таны компани эсвэл баримт бичгийг шинжлэхгүй.</p>
+          </div>
+          <p id="qualificationLoadStatus" class="qualification-load-status" role="status"></p>
+          <p id="qualificationError" class="qualification-error hidden" role="alert"></p>
+        </div>
+
+        <div id="qualificationEmpty" class="empty-state">
+          <span aria-hidden="true">🔎</span>
+          <h3>Шинжилгээний тайлан хараахан алга</h3>
+          <p>Жишээ тайланг нээж шаардлага бүрийг хэрхэн хянахыг үзээрэй. Баримт бичгийн шинжилгээ одоогоор холбогдоогүй.</p>
+        </div>
+
+        <div id="qualificationReport" class="hidden">
+          <div class="section-title qualification-report-title">
+            <div>
+              <p class="hero-small">SAMPLE REPORT · ЖИШЭЭ ТАЙЛАН</p>
+              <h2 id="qualificationTenderTitle"></h2>
+              <p id="qualificationReportContext"></p>
+            </div>
+          </div>
+          <div class="qualification-filters" role="group" aria-label="Filter requirement status">
+            <button class="secondary-btn" type="button" data-qualification-status="ALL" aria-pressed="true">All <span></span></button>
+            <button class="secondary-btn" type="button" data-qualification-status="MEETS" aria-pressed="false">Meets <span></span></button>
+            <button class="secondary-btn" type="button" data-qualification-status="DOES_NOT_MEET" aria-pressed="false">Does not meet <span></span></button>
+            <button class="secondary-btn" type="button" data-qualification-status="UNCERTAIN" aria-pressed="false">Uncertain <span></span></button>
+            <button class="secondary-btn" type="button" data-qualification-status="NOT_ANALYZED" aria-pressed="false">Not analyzed <span></span></button>
+          </div>
+          <p id="qualificationResultCount" class="qualification-result-count" role="status"></p>
+          <div id="qualificationList" class="qualification-list"></div>
+        </div>
+      </section>
 
       <!-- SAVED -->
       <section id="saved" class="page">
@@ -655,6 +704,7 @@
 
 
   <script src="script.js"></script>
+  <script type="module" src="qualification.mjs"></script>
 
 </body>
 </html>
