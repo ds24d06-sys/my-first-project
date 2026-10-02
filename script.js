@@ -362,6 +362,11 @@ const pageTitles = {
       "Гэрээний хувилбаруудыг AI-аар харьцуулна."
   },
 
+  profile: {
+    title: "Profile",
+    subtitle: "Хэрэглэгчийн мэдээллээ шинэчилнэ үү."
+  },
+
   company: {
     title: "Company Profile",
 
@@ -1480,6 +1485,57 @@ document
 
 
 // ========================================
+// PERSONAL PROFILE
+// ========================================
+
+const accountUser = JSON.parse(localStorage.getItem("tenderAIUser")) || {};
+const storedProfile = JSON.parse(localStorage.getItem("tenderAIProfile")) || {};
+const profileNameInput = document.getElementById("profileName");
+
+profileNameInput.value = storedProfile.name ||
+  (accountUser.email ? accountUser.email.split("@")[0] : "TenderAI User");
+document.getElementById("profileEmail").value = accountUser.email || "";
+document.getElementById("profileEmail").placeholder = "Бүртгэлтэй и-мэйл алга";
+
+function updateProfileDisplay() {
+  const name = profileNameInput.value.trim() || "TenderAI User";
+  const company = JSON.parse(localStorage.getItem("companyProfile"));
+  const companyName = (company && company.name) || accountUser.company || "Your account";
+  const initials = name.split(/\s+/).slice(0, 2)
+    .map(part => Array.from(part)[0]).join("").toUpperCase();
+
+  document.getElementById("topbarProfileName").textContent = name;
+  document.getElementById("profileDisplayName").textContent = name;
+  document.getElementById("topbarProfileCompany").textContent = companyName;
+  document.getElementById("profileCompanyName").textContent = companyName;
+  document.getElementById("topbarAvatar").textContent = initials;
+  document.getElementById("profileAvatar").textContent = initials;
+}
+
+document.getElementById("profileForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const name = profileNameInput.value.trim();
+  if (!name) {
+    profileNameInput.setCustomValidity("Нэрээ оруулна уу.");
+    profileNameInput.reportValidity();
+    return;
+  }
+  profileNameInput.value = name;
+  localStorage.setItem("tenderAIProfile", JSON.stringify({ name }));
+  updateProfileDisplay();
+  document.getElementById("profileSaveMessage").textContent =
+    "✅ Хэрэглэгчийн мэдээлэл амжилттай хадгалагдлаа.";
+  showToast("Хэрэглэгчийн мэдээлэл хадгалагдлаа.");
+});
+
+profileNameInput.addEventListener("input", () => {
+  profileNameInput.setCustomValidity("");
+  document.getElementById("profileSaveMessage").textContent = "";
+});
+
+updateProfileDisplay();
+
+// ========================================
 // COMPANY
 // ========================================
 
@@ -1589,6 +1645,8 @@ document
         )
       );
 
+
+      updateProfileDisplay();
 
       document.getElementById(
         "saveMessage"

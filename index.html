@@ -6,8 +6,7 @@
 
   <title>TenderAI</title>
 
-  <link rel="stylesheet" href="style.css
-" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
@@ -57,10 +56,19 @@
           Company Profile
         </button>
 
+        <button class="nav-item" data-page="profile" title="Profile" aria-label="Profile">
+          <span aria-hidden="true">👤</span>
+          Profile
+        </button>
+
       </nav>
 
       <div class="sidebar-bottom">
-        <button id="themeBtn">🌙 Dark mode</button>
+        <button id="themeBtn" type="button" title="Toggle theme" aria-label="Toggle theme">🌙 Dark mode</button>
+        <button class="logout-btn" type="button" onclick="logout()" title="Logout" aria-label="Logout">
+          <span aria-hidden="true">↪</span>
+          <span class="logout-label">Logout</span>
+        </button>
       </div>
 
     </aside>
@@ -86,20 +94,13 @@
             <span class="notification-count">3</span>
           </button>
 
-          <div class="profile-card">
-    <div class="profile-header">
-        <div>
-            <h2>Company Profile</h2>
-            <p>Manage your company information</p>
-        </div>
-
-        <button class="logout-btn" onclick="logout()">
-            ↪ Logout
-        </button>
-    </div>
-
-    <!-- энд profile-ийн бусад мэдээллүүдээ байлгана -->
-</div>
+          <button class="profile" type="button" onclick="changePage('profile')" aria-label="Open your profile">
+            <span class="avatar" id="topbarAvatar" aria-hidden="true">U</span>
+            <span class="profile-details">
+              <strong id="topbarProfileName">TenderAI User</strong>
+              <small id="topbarProfileCompany">Your account</small>
+            </span>
+          </button>
 
         </div>
 
@@ -449,6 +450,46 @@
 
       </section>
 
+
+      <!-- PROFILE -->
+      <section id="profile" class="page">
+        <div class="profile-card account-profile-card">
+          <div class="profile-card-header">
+            <p class="hero-small">MY PROFILE</p>
+            <h2>Хэрэглэгчийн мэдээлэл</h2>
+            <p>Өөрийн нэр болон бүртгэлийн мэдээллээ харах, шинэчлэх.</p>
+          </div>
+
+          <div class="account-profile-summary">
+            <div class="avatar account-avatar" id="profileAvatar" aria-hidden="true">U</div>
+            <div>
+              <h3 id="profileDisplayName">TenderAI User</h3>
+              <p id="profileCompanyName">Your account</p>
+            </div>
+          </div>
+
+          <form id="profileForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="profileName">Нэр</label>
+                <input type="text" id="profileName" autocomplete="name" maxlength="80" required />
+              </div>
+              <div class="form-group">
+                <label for="profileEmail">И-мэйл</label>
+                <input type="email" id="profileEmail" autocomplete="email" readonly aria-describedby="profileEmailHelp" />
+                <small id="profileEmailHelp" class="field-help">Бүртгэлтэй и-мэйл хаяг.</small>
+              </div>
+            </div>
+            <button class="primary-btn" type="submit">💾 Мэдээлэл хадгалах</button>
+            <p id="profileSaveMessage" class="save-message" role="status"></p>
+          </form>
+
+          <div class="profile-company-link">
+            <p>Компанийн мэдээллээ шинэчлэх</p>
+            <button class="text-btn" type="button" onclick="changePage('company')">Company Profile →</button>
+          </div>
+        </div>
+      </section>
 
       <!-- COMPANY -->
       <section id="company" class="page">
