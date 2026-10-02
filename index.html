@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>TenderAI</title>
+
+  <link rel="stylesheet" href="style.css
+" />
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="logo">
+        <div class="logo-icon">T</div>
+        <div>
+          <h2>TenderAI</h2>
+          <p>Smart Tender Platform</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+
+        <button class="nav-item active" data-page="dashboard">
+          <span>🏠</span>
+          Dashboard
+        </button>
+
+        <button class="nav-item" data-page="tenders">
+          <span>📋</span>
+          Tenders
+        </button>
+
+        <button class="nav-item" data-page="ai-match">
+          <span>🤖</span>
+          AI Match
+        </button>
+
+        <button class="nav-item" data-page="saved">
+          <span>⭐</span>
+          Saved
+        </button>
+
+        <button class="nav-item" data-page="contracts">
+          <span>📑</span>
+          Contracts
+        </button>
+
+        <button class="nav-item" data-page="company">
+          <span>🏢</span>
+          Company Profile
+        </button>
+
+      </nav>
+
+      <div class="sidebar-bottom">
+        <button id="themeBtn">🌙 Dark mode</button>
+      </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- TOP BAR -->
+      <header class="topbar">
+
+        <div>
+          <h1 id="pageTitle">Dashboard</h1>
+          <p id="pageSubtitle">
+            Танд тохирох тендерүүдийг хурдан олоорой.
+          </p>
+        </div>
+
+        <div class="topbar-right">
+
+          <button class="notification-btn">
+            🔔
+            <span class="notification-count">3</span>
+          </button>
+
+          <div class="profile-card">
+    <div class="profile-header">
+        <div>
+            <h2>Company Profile</h2>
+            <p>Manage your company information</p>
+        </div>
+
+        <button class="logout-btn" onclick="logout()">
+            ↪ Logout
+        </button>
+    </div>
+
+    <!-- энд profile-ийн бусад мэдээллүүдээ байлгана -->
+</div>
+
+        </div>
+
+      </header>
+
+
+      <!-- DASHBOARD -->
+      <section id="dashboard" class="page active-page">
+
+        <div class="hero">
+
+          <div>
+            <p class="hero-small">AI POWERED PROCUREMENT</p>
+
+            <h2>
+              Танд тохирох тендерийг
+              <span>AI-аар олоорой.</span>
+            </h2>
+
+            <p>
+              Нээлттэй тендерүүдийг нэг дороос хайж,
+              AI ашиглан компанид тохирох боломжуудыг илрүүлнэ.
+            </p>
+
+            <button class="primary-btn" onclick="changePage('tenders')">
+              Тендер хайх →
+            </button>
+          </div>
+
+          <div class="hero-ai">
+            <div class="ai-circle">AI</div>
+
+            <p>
+              Танай компанид тохирох
+              <strong>12 тендер</strong>
+              олдлоо.
+            </p>
+          </div>
+
+        </div>
+
+
+        <!-- STATS -->
+        <div class="stats-grid">
+
+          <div class="stat-card">
+            <div class="stat-icon blue">📋</div>
+
+            <div>
+              <p>Нийт тендер</p>
+              <h3 id="totalTenderCount">0</h3>
+            </div>
+          </div>
+
+
+          <div class="stat-card">
+            <div class="stat-icon purple">🤖</div>
+
+            <div>
+              <p>AI тохирсон</p>
+              <h3 id="aiMatchCount">0</h3>
+            </div>
+          </div>
+
+
+          <div class="stat-card">
+            <div class="stat-icon yellow">⭐</div>
+
+            <div>
+              <p>Хадгалсан</p>
+              <h3 id="savedCount">0</h3>
+            </div>
+          </div>
+
+
+          <div class="stat-card">
+            <div class="stat-icon red">⏰</div>
+
+            <div>
+              <p>Удахгүй дуусах</p>
+              <h3 id="deadlineCount">0</h3>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="dashboard-grid">
+
+          <div class="panel">
+
+            <div class="panel-header">
+              <div>
+                <h3>🤖 AI Recommended Tenders</h3>
+                <p>Таны компанид хамгийн сайн тохирох тендерүүд</p>
+              </div>
+
+              <button class="text-btn" onclick="changePage('ai-match')">
+                Бүгдийг харах
+              </button>
+            </div>
+
+            <div id="recommendedList"></div>
+
+          </div>
+
+
+          <div class="panel">
+
+            <div class="panel-header">
+              <div>
+                <h3>⏰ Удахгүй дуусах</h3>
+                <p>Анхаарах шаардлагатай тендерүүд</p>
+              </div>
+            </div>
+
+            <div id="deadlineList"></div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- TENDERS -->
+      <section id="tenders" class="page">
+
+        <div class="search-panel">
+
+          <div class="search-box">
+            <span>🔍</span>
+
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Тендер, байгууллага, түлхүүр үгээр хайх..."
+            />
+          </div>
+
+
+          <select id="categoryFilter">
+            <option value="all">Бүх салбар</option>
+            <option value="Construction">Барилга</option>
+            <option value="IT">Мэдээллийн технологи</option>
+            <option value="Healthcare">Эрүүл мэнд</option>
+            <option value="Supply">Бараа нийлүүлэлт</option>
+          </select>
+
+
+          <select id="budgetFilter">
+            <option value="all">Бүх төсөв</option>
+            <option value="low">500 саяас доош</option>
+            <option value="medium">500 сая - 2 тэрбум</option>
+            <option value="high">2 тэрбумаас дээш</option>
+          </select>
+
+        </div>
+
+
+        <div class="section-title">
+          <div>
+            <h2>Нээлттэй тендерүүд</h2>
+
+            <p>
+              <span id="resultCount">0</span>
+              тендер олдлоо
+            </p>
+          </div>
+        </div>
+
+
+        <div id="tenderList" class="tender-grid"></div>
+
+      </section>
+
+
+      <!-- AI MATCH -->
+      <section id="ai-match" class="page">
+
+        <div class="ai-header-card">
+
+          <div>
+            <p class="hero-small">SMART MATCHING</p>
+
+            <h2>AI Tender Match</h2>
+
+            <p>
+              Компанийн мэдээлэл дээр үндэслэн хамгийн тохирох
+              тендерүүдийг AI эрэмбэлнэ.
+            </p>
+          </div>
+
+          <div class="big-ai-icon">🤖</div>
+
+        </div>
+
+
+        <div id="aiMatchList" class="tender-grid"></div>
+
+      </section>
+
+
+      <!-- SAVED -->
+      <section id="saved" class="page">
+
+        <div class="section-title">
+
+          <div>
+            <h2>⭐ Хадгалсан тендерүүд</h2>
+
+            <p>
+              Дараа дахин харахаар хадгалсан тендерүүд.
+            </p>
+          </div>
+
+        </div>
+
+        <div id="savedTenderList" class="tender-grid"></div>
+
+      </section>
+
+
+      <!-- CONTRACT -->
+      <section id="contracts" class="page">
+
+        <div class="contract-card">
+
+          <div class="contract-intro">
+
+            <p class="hero-small">AI CONTRACT REVIEW</p>
+
+            <h2>Гэрээний хувилбар харьцуулах</h2>
+
+            <p>
+              Хуучин болон шинэ гэрээний өөрчлөлтийг AI автоматаар
+              илрүүлнэ.
+            </p>
+
+          </div>
+
+
+          <div class="upload-grid">
+
+            <label class="upload-box">
+
+              <span class="upload-icon">📄</span>
+
+              <h3>Хуучин гэрээ</h3>
+
+              <p id="oldFileName">
+                PDF эсвэл Word файл сонгоно уу
+              </p>
+
+              <input
+                type="file"
+                id="oldContract"
+                accept=".pdf,.doc,.docx,.txt"
+              />
+
+            </label>
+
+
+            <label class="upload-box">
+
+              <span class="upload-icon">📄</span>
+
+              <h3>Шинэ гэрээ</h3>
+
+              <p id="newFileName">
+                PDF эсвэл Word файл сонгоно уу
+              </p>
+
+              <input
+                type="file"
+                id="newContract"
+                accept=".pdf,.doc,.docx,.txt"
+              />
+
+            </label>
+
+          </div>
+
+
+          <button class="primary-btn compare-btn" id="compareBtn">
+            🤖 AI-аар харьцуулах
+          </button>
+
+
+          <div id="comparisonResult" class="comparison-result hidden">
+
+            <h3>AI шинжилгээний үр дүн</h3>
+
+
+            <div class="change-item added">
+
+              <strong>+ Нэмэгдсэн</strong>
+
+              <p>
+                Төлбөрийг бараа хүлээн авснаас хойш
+                30 хоногийн дотор шилжүүлнэ.
+              </p>
+
+            </div>
+
+
+            <div class="change-item changed">
+
+              <strong>~ Өөрчлөгдсөн</strong>
+
+              <p>
+                Нийлүүлэх хугацаа:
+                <b>30 хоног → 45 хоног</b>
+              </p>
+
+            </div>
+
+
+            <div class="change-item removed">
+
+              <strong>− Хасагдсан</strong>
+
+              <p>
+                Гүйцэтгэгч хугацаа сунгуулах хүсэлт гаргах боломжтой
+                гэсэн заалт хасагдсан.
+              </p>
+
+            </div>
+
+
+            <div class="warning-box">
+
+              ⚠️
+              <div>
+                <strong>Чухал өөрчлөлт илэрлээ</strong>
+
+                <p>
+                  Хугацаатай холбоотой гэрээний нөхцөл өөрчлөгдсөн байна.
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- COMPANY -->
+      <section id="company" class="page">
+
+        <div class="profile-card">
+
+          <div class="profile-card-header">
+
+            <div>
+              <p class="hero-small">COMPANY PROFILE</p>
+
+              <h2>Компанийн мэдээлэл</h2>
+
+              <p>
+                AI энэ мэдээллийг ашиглан тохирох тендерийг санал болгоно.
+              </p>
+            </div>
+
+          </div>
+
+
+          <form id="companyForm">
+
+            <div class="form-grid">
+
+              <div class="form-group">
+
+                <label>Компанийн нэр</label>
+
+                <input
+                  type="text"
+                  id="companyName"
+                  value="Example LLC"
+                />
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>Үйл ажиллагааны салбар</label>
+
+                <select id="companyCategory">
+
+                  <option value="Construction">
+                    Барилга
+                  </option>
+
+                  <option value="IT">
+                    Мэдээллийн технологи
+                  </option>
+
+                  <option value="Healthcare">
+                    Эрүүл мэнд
+                  </option>
+
+                  <option value="Supply">
+                    Бараа нийлүүлэлт
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>Ажилласан жил</label>
+
+                <input
+                  type="number"
+                  id="companyExperience"
+                  value="5"
+                />
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>Ажилчдын тоо</label>
+
+                <input
+                  type="number"
+                  id="companyEmployees"
+                  value="25"
+                />
+
+              </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>Компанийн тухай</label>
+
+              <textarea
+                id="companyDescription"
+                rows="5"
+              >Барилга угсралт, засвар үйлчилгээ болон дэд бүтцийн чиглэлээр үйл ажиллагаа явуулдаг.</textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>Тусгай зөвшөөрөл</label>
+
+              <textarea
+                id="companyLicense"
+                rows="3"
+                placeholder="Жишээ: Барилгын тусгай зөвшөөрөл..."
+              ></textarea>
+
+            </div>
+
+
+            <button
+              class="primary-btn"
+              type="submit"
+            >
+              💾 Мэдээлэл хадгалах
+            </button>
+
+            <p id="saveMessage" class="save-message"></p>
+
+          </form>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- TENDER MODAL -->
+  <div id="tenderModal" class="modal">
+
+    <div class="modal-content">
+
+      <button
+        class="modal-close"
+        onclick="closeModal()"
+      >
+        ✕
+      </button>
+
+
+      <div id="modalContent"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOAST -->
+  <div id="toast" class="toast">
+    Мэдэгдэл
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>

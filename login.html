@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TenderAI - Login</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="login-body">
+
+    <div class="auth-container">
+
+        <div class="auth-card">
+
+            <!-- LOGO -->
+            <div class="auth-logo">
+                Tender<span>AI</span>
+            </div>
+
+            <!-- LOGIN -->
+            <div id="loginSection">
+
+                <h1>Welcome back 👋</h1>
+
+                <p class="auth-description">
+                    TenderAI account-даа нэвтэрнэ үү.
+                </p>
+
+                <form id="loginForm">
+
+                    <label for="loginEmail">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="example@gmail.com"
+                        required
+                    >
+
+                    <label for="loginPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                    <div class="forgot-password">
+                        <a href="#" onclick="forgotPassword()">
+                            Forgot password?
+                        </a>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="auth-button"
+                    >
+                        Login
+                    </button>
+
+                </form>
+
+                <p class="auth-switch">
+                    Account байхгүй юу?
+                    <button onclick="showRegister()">
+                        Create account
+                    </button>
+                </p>
+
+            </div>
+
+
+            <!-- REGISTER -->
+            <div
+                id="registerSection"
+                style="display: none;"
+            >
+
+                <h1>Create account ✨</h1>
+
+                <p class="auth-description">
+                    TenderAI дээр шинэ account үүсгэнэ.
+                </p>
+
+                <form id="registerForm">
+
+                    <label for="companyName">
+                        Company name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="companyName"
+                        placeholder="Your company"
+                        required
+                    >
+
+                    <label for="registerEmail">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="registerEmail"
+                        placeholder="example@gmail.com"
+                        required
+                    >
+
+                    <label for="registerPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="registerPassword"
+                        placeholder="Minimum 6 characters"
+                        required
+                    >
+
+                    <label for="confirmPassword">
+                        Confirm password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Repeat your password"
+                        required
+                    >
+
+                    <button
+                        type="submit"
+                        class="auth-button"
+                    >
+                        Create account
+                    </button>
+
+                </form>
+
+                <p class="auth-switch">
+                    Already have an account?
+
+                    <button onclick="showLogin()">
+                        Login
+                    </button>
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        // =========================
+        // SHOW REGISTER
+        // =========================
+
+        function showRegister() {
+
+            document.getElementById("loginSection").style.display =
+                "none";
+
+            document.getElementById("registerSection").style.display =
+                "block";
+        }
+
+
+        // =========================
+        // SHOW LOGIN
+        // =========================
+
+        function showLogin() {
+
+            document.getElementById("registerSection").style.display =
+                "none";
+
+            document.getElementById("loginSection").style.display =
+                "block";
+        }
+
+
+        // =========================
+        // REGISTER
+        // =========================
+
+        document
+            .getElementById("registerForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                const company =
+                    document.getElementById("companyName").value.trim();
+
+                const email =
+                    document.getElementById("registerEmail").value.trim();
+
+                const password =
+                    document.getElementById("registerPassword").value;
+
+                const confirm =
+                    document.getElementById("confirmPassword").value;
+
+
+                if (password.length < 6) {
+
+                    alert(
+                        "Password хамгийн багадаа 6 тэмдэгт байна."
+                    );
+
+                    return;
+                }
+
+
+                if (password !== confirm) {
+
+                    alert(
+                        "Password-ууд таарахгүй байна."
+                    );
+
+                    return;
+                }
+
+
+                const user = {
+
+                    company: company,
+
+                    email: email,
+
+                    password: password
+
+                };
+
+
+                localStorage.setItem(
+                    "tenderAIUser",
+                    JSON.stringify(user)
+                );
+
+
+                alert(
+                    "Account амжилттай үүслээ!"
+                );
+
+
+                showLogin();
+
+            });
+
+
+        // =========================
+        // LOGIN
+        // =========================
+
+        document
+            .getElementById("loginForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+
+                const email =
+                    document.getElementById("loginEmail").value.trim();
+
+                const password =
+                    document.getElementById("loginPassword").value;
+
+
+                const savedUser =
+                    JSON.parse(
+                        localStorage.getItem("tenderAIUser")
+                    );
+
+
+                if (!savedUser) {
+
+                    alert(
+                        "Account олдсонгүй. Эхлээд Register хийнэ үү."
+                    );
+
+                    return;
+                }
+
+
+                if (
+                    email === savedUser.email &&
+                    password === savedUser.password
+                ) {
+
+                    localStorage.setItem(
+                        "tenderAILoggedIn",
+                        "true"
+                    );
+
+
+                    window.location.href =
+                        "index.html";
+
+                }
+
+                else {
+
+                    alert(
+                        "Email эсвэл password буруу байна."
+                    );
+
+                }
+
+            });
+
+
+        // =========================
+        // FORGOT PASSWORD
+        // =========================
+
+        function forgotPassword() {
+
+            alert(
+                "Password сэргээх системийг backend-тэй холбосны дараа ашиглана."
+            );
+
+        }
+
+    </script>
+
+</body>
+</html>
